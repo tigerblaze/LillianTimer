@@ -13,6 +13,9 @@ namespace LillianTimer
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// 計時器們儲存的陣列。用索引來取得
+        /// </summary>
         Component[] Components;
 
         public Form1()
@@ -26,7 +29,6 @@ namespace LillianTimer
 
         private void CreateUI(int timerCount)
         {
-            // 创建并布局多个 控件
             for (int i = 0; i < timerCount; i++)
             {
                 int height = 25 + i * 50;
@@ -37,7 +39,7 @@ namespace LillianTimer
                 textBox.Tag = i;
                 textBox.Location = new System.Drawing.Point(24, height);
                 textBox.Size = new System.Drawing.Size(106, 22);
-                component.TextBoxField = textBox;
+                component.TextBoxField = textBox; 
                 this.Controls.Add(textBox);
 
                 TextBox timerBox = new TextBox();
@@ -79,7 +81,7 @@ namespace LillianTimer
                 component.ResetBT = button;
                 this.Controls.Add(button);
 
-                Components[i] = component;
+                Components[i] = component; //將計時器依照index放進陣列
             }
         }
 
@@ -90,7 +92,7 @@ namespace LillianTimer
                 Timer timer = new Timer();
                 timer.Tick += timer_Tick;
                 timer.Tag = i;
-                timer.Interval = 1000;
+                timer.Interval = 1000; //設置計時器跳動頻率為1秒
                 Components[i].TimerField = timer;
             }
         }
@@ -115,19 +117,24 @@ namespace LillianTimer
         {
             var component = GetComponent(sender);
             component.Second = 0;
-            component.TimerBoxField.Text = ParseTimeFormat(component.Second);
+            component.TimerBoxField.Text = GetTimeFormat(component.Second);
         }
 
+        /// <summary>
+        /// timer物件跳動一次要執行的行為
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_Tick(object sender, EventArgs e)
         {
             Timer timer = (Timer)sender;
             int index = (int)timer.Tag;
             var component = Components[index];
-            component.Second++;
-            component.TimerBoxField.Text = ParseTimeFormat(component.Second);
+            component.Second++; //每跳一次計時器的秒數要加一
+            component.TimerBoxField.Text = GetTimeFormat(component.Second); //更新時間文字框的顯示文字
         }
 
-        private string ParseTimeFormat(int second)
+        private string GetTimeFormat(int second)
         {
             int min = second / 60;
             int hour = min / 60;
@@ -136,6 +143,11 @@ namespace LillianTimer
             return string.Format("{0:D2}:{1:D2}:{2:D2}", hour, min, second);
         }
 
+        /// <summary>
+        /// 從陣列取指定計時器
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns>計時器</returns>
         private Component GetComponent(object sender)
         {
             Button button = (Button)sender;
