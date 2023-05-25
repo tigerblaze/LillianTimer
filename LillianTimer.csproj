@@ -7,7 +7,7 @@
     <ProjectGuid>{9A7A37A9-F19B-4257-89B4-F49BD7E0B024}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>LillianTimer</RootNamespace>
-    <AssemblyName>LillianTimer</AssemblyName>
+    <AssemblyName>Timer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
