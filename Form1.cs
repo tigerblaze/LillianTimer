@@ -137,10 +137,10 @@ namespace LillianTimer
         private string GetTimeFormat(int second)
         {
             int min = second / 60;
+            int sec = second % 60;
             int hour = min / 60;
-            second = second % 3600;
 
-            return string.Format("{0:D2}:{1:D2}:{2:D2}", hour, min, second);
+            return string.Format("{0:D2}:{1:D2}:{2:D2}", hour, min, sec);
         }
 
         /// <summary>
